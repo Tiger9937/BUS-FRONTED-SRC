@@ -112,7 +112,7 @@
 
 //                   <Input className="bg-gray-300 flex" defaultValue="test" {...register("example")} />
 //                   <Input className="bg-gray-500 " value={clone?.example}    {...register("exampleRequired", { required: true })} onChange={()=>imchange(event)}/>
-//                   <Input className="bg-gray-400 "  {...register("exampleuired", { required: true })} onChange={()=>imchange(event)}/>
+//                   <Input className="bg-gray-100 "  {...register("exampleuired", { required: true })} onChange={()=>imchange(event)}/>
 //                 <Input id={"hello-js"}  {...register("eRequired")} value={clone?.example}  onChange={()=>imchange(event)} />
 
 //       </div>
@@ -147,75 +147,68 @@
 // }
 // }
 
-import React, { useEffect, useState, useRef } from "react";
 
 
-const ScrollReveal = () => {
-  const elementsRef = useRef([]); // Store references to all elements
-  const [visibleElements, setVisibleElements] = useState([]); // Track visible elements
+{/*
+    useEffect(()=>{
+    // working is cheak the element bihaviear
+    const obserber =new IntersectionObserver((enteres)=>{
+      const entry = enteres[0]
+      console.log("Element Enter::",entry)
+      console.log("Element Enter Traget::",entry.target.className = "bg-black max-w-10 max-h-min-h-10")
+      // bg-slate-800 max-w-10 max-h-min-h-10
+    })
+    console.log(obserber)
+   obserber.observe(elemntRef.current)
+  },[])
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = entry.target.dataset.index; // Get index from dataset
-            setVisibleElements((prev) => {
-              if (!prev.includes(index)) {
-                return [...prev, index]; // Add index if not already visible
-              }
-              return prev;
-            });
-          }
-        });
-      },
-      { threshold: 0.1 } // Trigger when 10% of the element is visible
-    );
-
-    // Observe each element
-    elementsRef.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect(); // Cleanup observer on unmount
-    };
-  }, []);
-
-  const items = [
-    "Item 1",
-    "Item 2",
-    "Item 3",
-    "Item 4",
-    "Item 5",
-    "Item 6",
-    "Item 7",
-    "Item 8"
-  ];
-
-  return (
-    <div  className="bg-black w-11 h-44 absolute"   style={{  padding: "20px", height: "20vh", overflow: "auto" }}>
-      {items.map((item, index) => (
-        <div
-          key={index}
-          ref={(el) => (elementsRef.current[index] = el)} // Store each element's ref
-          data-index={index} // Add index to dataset
-          style={{
-            opacity: visibleElements.includes(String(index)) ? 1 : 0, // Show or hide
-            transition: "opacity 0.5s ease-in",
-            background: "#f1f1f1",
-            margin: "10px 0",
-            padding: "20px",
-            border: "1px solid #ccc"
-          }}
-        >
-          {item}
-        </div>
-      ))}
-    </div>
-  );
-};
-
-export default ScrollReveal;
+*/}
 
 
+
+{/* <div id="1" className="bg-slate-300 max-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-100 min-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-500 min-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-600 min-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-700 min-w-10 min-h-10" ></div>
+            <div id="1" className="bg-slate-800 max-w-10 max-h-min-h-10"></div>
+            <div id="1" className="bg-slate-800 max-w-10 max-h-min-h-10"></div>
+
+            <div id="1" className="bg-slate-300 max-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-100 min-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-500 min-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-600 min-w-10 min-h-10"></div>
+            <div id="1" className="bg-slate-700 min-w-10 min-h-10" ></div>
+            <div id="1" className="bg-slate-800 max-w-10 max-h-min-h-10"></div>
+            <div id="1" className="bg-slate-800 max-w-10 max-h-min-h-10"></div> */}
+
+
+
+
+            import React from 'react'
+            import { Singup } from '../index';
+
+            export default function Exparimant() {
+              return (
+                <div className="flex justify-center min-h-screen items-center w-full  bg-yellow-400 sm:bg-gray-100 ">
+      
+                          <div className="bg-yellow-400 rounded-lg min-h-screen shadow-lg  sm:p-8 flex flex-col sm:flex-row sm:bg-yellow-400 sm:min-h-44" style={{ width: '1163px', height: '573px' , sm: { height: '573px' }}}>
+                            
+                          <div class=" grid gap-4 m-4 sm:grid-cols-12 ">
+                                <div class="rounded bg-orange-500 shadow-xl sm:col-span-4 min-w-[200px]" >
+                                  hello
+                                </div>
+                                <div class="rounded bg-sky-400 shadow-xl sm:col-span-4 sm::min-w-[600px] min-w-[200px]">
+                                            <div className="flex-1 flex flex-col justify-center p-4 sm:-mt-0 ">
+                                              <Singup />
+             
+                                            </div>
+                                </div>
+                          </div>
+            
+                          </div>
+           
+                  </div>
+              )
+            }
+            

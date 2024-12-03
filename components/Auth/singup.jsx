@@ -86,7 +86,7 @@ export default function Signup() {
   
         <Button
           type='submit'
-          className={`sm:w-full w-40 ml-16 sm:ml-0 p-3 hover:bg-slate-50 bg-white text-black rounded-3xl sm:rounded-lg shadow-lg mt-4 ${loading ? 'animate-wind-flow' : ''}`} // Apply animation class conditionally
+          className={`sm:w-full w-40 ml-16 sm:ml-0 p-3  hover:bg-slate-50 bg-white  text-black  shadow-lg mt-4 ${loading ? 'animate-wind-flow' : ''}`} // Apply animation class conditionally
         >
           {loading ? <span>Loading.....</span> : <span>Signup</span>}
         </Button>
