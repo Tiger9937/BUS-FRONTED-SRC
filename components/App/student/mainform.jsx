@@ -2,27 +2,89 @@
  import {Input ,Button} from '../../index'
  import { useForm } from 'react-hook-form';
  import {NodeElement_TO_Array} from '../../../utils/node_Converter'
+ import {GetRawData} from '../../../utils/fetch'
+    // BUG::when user click the address same than this well not pass data in home address
+    
 
   // import {MultiREF} from '../../../utils/ref'
-// TODO:: When user prase enter than going to next fild if all fild is fill than go the gigster button
- 
- export default function mainform() {
+  // TODO:: When user prase enter than going to next fild if all fild is fill than go the gigster button
+
+
+ export default function mainform({CollageID}) {
     const [addressSame, setAddressSame] = useState(false);
     const [DataClone , setDateClon] = useState({})
     const [Home_DataClone , setHome_DateClon] = useState({})
     const [previusVal , setpreviusVal] = useState([{Name:"",targetValue:""}])
     const inputRef = useRef(null)
 
-
     const{register , handleSubmit,
       formState: { errors },
-      watch
+      watch,
     }=useForm();
- 
     
-  
+    
+        
     const onSubmit = (data) => {
       
+      console.log(data)
+
+      function calculateAge(birthDateString) {
+        let birthDate = new Date(birthDateString); 
+        let today = new Date(); // Current date
+      
+        let age = today.getFullYear() - birthDate.getFullYear();
+      
+        // Adjust if the birthday hasn't occurred yet this year
+        let monthDifference = today.getMonth() - birthDate.getMonth();
+        let dayDifference = today.getDate() - birthDate.getDate();
+      
+        if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+          age--;
+        }
+      
+        return age;
+      }
+      const AGE = calculateAge(data?.DOB)
+      console.log("AGE->",AGE)
+      
+      const Student_Registration_Required_Data = {
+          "mobileNumber": data?.Mobile_Number,
+          "Collage":CollageID,
+          "course": data?.course,
+          "RollNumber": data?.RollNumber,
+          "enrolmentDate":data?.Enrollment_Date,
+          "DOB" : data?.DOB,
+          "age" : AGE,
+          "Gender":data?.Gender,
+    "Address": {
+        "countrie": "USA",
+        "state": "California",
+        "District": "Los Angeles",
+        "at": "1234",
+        "po": "90001",
+        "Village": "Westwood",
+        "city": "Los Angeles",
+        "pincode": "90001",
+        "Nearer_Landmark": "Near Sunset Boulevard"
+    },
+    "Living_address": {
+        "countrie": "USA",
+        "state": "California",
+        "District": "Los Angeles",
+        "at": "5678",
+        "po": "90002",
+        "Village": "Hollywood",
+        "city": "Los Angeles",
+        "pincode": "90002",
+        "Nearer_Landmark": "Near Hollywood Sign"
+    }
+      }
+
+
+        
+      console.log(data)
+       // const rigster = GetRawData('POST', "/collage/collageRigster" , Student_Registration_Required_Data)
+
     }
 
     // asing the privius value when the user is un teke the chake box
@@ -50,7 +112,8 @@
 
             }
           }
-    },[addressSame, watch , setDateClon , setHome_DateClon])
+         
+    },[addressSame , setDateClon , setHome_DateClon , watch])
   
     const assignPrevvalue  = (event) =>{
         const TragetName = event.target?.name
@@ -265,6 +328,7 @@
             </div>
 
             <Input
+                onChange={assignPrevvalue}
                 {...register("Home_atpo")}
                 value = {Home_DataClone?.atpo}
                 placeholder="AT/PO"
@@ -274,15 +338,16 @@
 
 
             <Input  
+            onChange={assignPrevvalue}
             {...register("Home_Village_Area")} value = {Home_DataClone?.Village_Area}   type="text" placeholder="Village / Area" className="bg-Nut-PUR  border-white peer placeholder-slate-200 text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-black p-2 border rounded"/>
             <div className="flex gap-4">
               <Input   
-              
+              onChange={assignPrevvalue}
               {...register("Home_City")} value = {Home_DataClone?.City } type="text" placeholder="City" className="bg-Nut-PUR  border-white peer placeholder-slate-200 text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-black p-2 border rounded"/>
-              <Input  {...register("Home_Pin_code")} value = {Home_DataClone?.Pin_code} type="text" placeholder="Pin code" className="bg-Nut-PUR  border-white peer placeholder-slate-200 text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-black p-2 border rounded"/>
+              <Input onChange={assignPrevvalue} {...register("Home_Pin_code")} value = {Home_DataClone?.Pin_code} type="text" placeholder="Pin code" className="bg-Nut-PUR  border-white peer placeholder-slate-200 text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-black p-2 border rounded"/>
             </div>
             <Input  
-            
+              onChange={assignPrevvalue}
               {...register("Home_Nearest_Landmark")} value = {Home_DataClone?.Nearest_Landmark} type="text" placeholder="Nearest Landmark" className="bg-Nut-PUR  border-white peer placeholder-slate-200 text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-black p-2 border rounded"/>
           </div>
 
